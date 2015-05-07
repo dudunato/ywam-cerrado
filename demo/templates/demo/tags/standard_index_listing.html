@@ -1,12 +1,19 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 {% if pages %}
-    <div class="list-group">
+    <div class="list-group text-center">
         {% for page in pages %}
-            <a class="list-group-item" href="{% pageurl page %}">
-                <h4 class="list-group-item-heading">{{ page.title }}</h4>
-                {% if page.search_description %}
-                    <p class="list-group-item-text">{{ page.search_description }}</p>
-                {% endif %}
+            <a class="list-group-item no-padding col-sm-4" href="{% pageurl page %}">
+              <div class="media-top">
+                {% image page.feed_image fill-365x300-c100 as img %}
+                <img class="media-object" src="{{img.url}}">
+              </div>
+
+              <div class="media-body">
+                <h4 class="list-group-item-heading">{{ page.title }} <i class="fa fa-flag-o"></i></h4>
+              </div>
+                <!-- {% if page.search_description %} -->
+                <!--     <p class="list&#45;group&#45;item&#45;text">{{ page.search_description }}</p> -->
+                <!-- {% endif %} -->
             </a>
         {% endfor %}
     </div>

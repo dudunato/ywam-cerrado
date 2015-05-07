@@ -1,12 +1,38 @@
 {% extends "demo/base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags demo_tags bootstrap i18n %}
+
+{% block body_class %}form-full-page{% endblock %}
+
+{% block heading %}{% endblock %}
 
 {% block content %}
-    {% include "demo/includes/intro.html" with intro=self.intro only %}
+    {# {% include "demo/includes/intro.html" with intro=self.intro only %} #}
+    {#  #}
+    {# <form class="form-horizontal" action="{% pageurl self %}" method="POST"> #}
+    {#     {% csrf_token %} #}
+    {#     {{ form.as_p }} #}
+    {#     <input type="submit"> #}
+    {# </form> #}
+{% endblock %}
 
-    <form action="{% pageurl self %}" method="POST">
+{% block aside %}
+  <aside class="form-page">
+    <div class="container">
+      {% breadcrumbs %}
+      <h2 class="">{{self.title}}</h2>
+      <div class="col-sm-6">
+        {{self.intro | richtext}}
+      </div>
+
+      <form class="form-horizontal col-sm-6" action="{% pageurl self %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit">
-    </form>
+        {{ form | bootstrap_horizontal}}
+        <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+            <button type="submit" class="btn btn-primary btn-lg">{% trans "Send" %}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </aside>
 {% endblock %}

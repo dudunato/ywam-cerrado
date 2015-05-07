@@ -2,15 +2,14 @@ from datetime import date
 
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.utils import translation
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, \
     InlinePanel, PageChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailimages.models import Image
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
@@ -18,7 +17,7 @@ from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
-from taggit.models import Tag, TaggedItemBase
+from taggit.models import TaggedItemBase
 
 from demo.utils import export_event
 
@@ -29,8 +28,72 @@ EVENT_AUDIENCE_CHOICES = (
 )
 
 
-# A couple of abstract classes that contain commonly used fields
+# multilingual support
+class LanguageRedirectionPage(Page):
 
+    def serve(self, request):
+        # This will only return a language that
+        # is in the LANGUAGES Django setting
+        language = translation.get_language_from_request(request)
+        language = language if language == 'en' else 'br'
+
+        return HttpResponseRedirect(self.url + language + '/')
+
+
+class TranslatablePageMixin(models.Model):
+    # One link for each alternative language
+    # These should only be used on the main language page (english)
+    br_link = models.ForeignKey(
+        Page,
+        null=True,
+        on_delete=models.SET_NULL,
+        blank=True,
+        related_name='+')
+
+    def get_language(self):
+        """
+        This returns the language code for this page.
+        """
+        # Look through ancestors of this page for its language homepage
+        # The language homepage is located at depth 3
+        language_homepage = self.get_ancestors(inclusive=True).get(depth=3)
+
+        # The slug of language homepages should always 
+        # be set to the language code
+        return language_homepage.slug
+
+    # Method to find the main language version of this page
+    # This works by reversing the above links
+    def english_page(self):
+        """
+        This finds the english version of this page
+        """
+        language = self.get_language()
+
+        if language == 'en':
+            return self
+        elif language == 'br':
+            return type(self).objects.filter(br_link=self).first().specific
+
+    # We need a method to find a version of this page for each 
+    # alternative language.
+    # These all work the same way. They firstly find the main version page
+    # (english), then from there they can just follow the link to correct page.
+
+    def br_page(self):
+        """
+        This finds the br version of this page
+        """
+        english_page = self.english_page()
+
+        if english_page and english_page.br_link:
+            return english_page.br_link.specific
+
+    class Meta:
+        abstract = True
+
+
+# A couple of abstract classes that contain commonly used fields
 class LinkFields(models.Model):
     link_external = models.URLField("External link", blank=True)
     link_page = models.ForeignKey(
@@ -165,7 +228,8 @@ class HomePageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('demo.HomePage', related_name='related_links')
 
 
-class HomePage(Page):
+class HomePage(Page, TranslatablePageMixin):
+    slogan = models.CharField(max_length=255, blank=True, default="")
     body = RichTextField(blank=True)
 
     search_fields = Page.search_fields + (
@@ -177,9 +241,11 @@ class HomePage(Page):
 
 HomePage.content_panels = [
     FieldPanel('title', classname="full title"),
+    FieldPanel('slogan', classname="full"),
     FieldPanel('body', classname="full"),
     InlinePanel(HomePage, 'carousel_items', label="Carousel items"),
     InlinePanel(HomePage, 'related_links', label="Related links"),
+    PageChooserPanel('br_link'),
 ]
 
 HomePage.promote_panels = Page.promote_panels
@@ -191,7 +257,7 @@ class StandardIndexPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('demo.StandardIndexPage', related_name='related_links')
 
 
-class StandardIndexPage(Page):
+class StandardIndexPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -226,7 +292,7 @@ class StandardPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('demo.StandardPage', related_name='related_links')
 
 
-class StandardPage(Page):
+class StandardPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
@@ -261,7 +327,7 @@ class BlogIndexPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('demo.BlogIndexPage', related_name='related_links')
 
 
-class BlogIndexPage(Page):
+class BlogIndexPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
 
     search_fields = Page.search_fields + (
@@ -325,7 +391,7 @@ class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey('demo.BlogPage', related_name='tagged_items')
 
 
-class BlogPage(Page):
+class BlogPage(Page, TranslatablePageMixin):
     body = RichTextField()
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date = models.DateField("Post date")
@@ -366,7 +432,7 @@ class PersonPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('demo.PersonPage', related_name='related_links')
 
 
-class PersonPage(Page, ContactFields):
+class PersonPage(Page, ContactFields, TranslatablePageMixin):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     intro = RichTextField(blank=True)
@@ -411,7 +477,7 @@ PersonPage.promote_panels = Page.promote_panels + [
 
 # Contact page
 
-class ContactPage(Page, ContactFields):
+class ContactPage(Page, ContactFields, TranslatablePageMixin):
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -442,7 +508,7 @@ class EventIndexPageRelatedLink(Orderable, RelatedLink):
     page = ParentalKey('demo.EventIndexPage', related_name='related_links')
 
 
-class EventIndexPage(Page):
+class EventIndexPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
 
     search_fields = Page.search_fields + (
@@ -506,7 +572,7 @@ class EventPageSpeaker(Orderable, LinkFields):
     ]
 
 
-class EventPage(Page):
+class EventPage(Page, TranslatablePageMixin):
     date_from = models.DateField("Start date")
     date_to = models.DateField(
         "End date",
@@ -579,8 +645,100 @@ EventPage.promote_panels = Page.promote_panels + [
 ]
 
 
+# course pages
+class CourseIndexPageRelatedLink(Orderable, RelatedLink):
+    page = ParentalKey('demo.CourseIndexPage', related_name='related_links')
+
+
+class CourseIndexPage(Page, TranslatablePageMixin):
+    intro = RichTextField(blank=True)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    body = RichTextField(blank=True)
+
+    search_fields = Page.search_fields + (
+        index.SearchField('intro'),
+    )
+
+    @property
+    def courses(self):
+        courses = CoursePage.objects.live().descendant_of(self)
+        courses = courses.filter(date_from__gte=date.today())
+        courses = courses.order_by('date_from')
+
+        return courses
+
+CourseIndexPage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
+    FieldPanel('intro', classname="full"),
+    FieldPanel('body', classname="full"),
+    InlinePanel(CourseIndexPage, 'related_links', label="Related links"),
+]
+
+CourseIndexPage.promote_panels = Page.promote_panels
+
+
+class CoursePageRelatedLink(Orderable, RelatedLink):
+    page = ParentalKey('demo.CoursePage', related_name='related_links')
+
+
+class CoursePage(Page, TranslatablePageMixin):
+    date_from = models.DateField("Start date")
+    body = RichTextField(blank=True)
+    languages = models.CharField(max_length=255)
+    cost_lecture = models.CharField(max_length=255)
+    cost_outreach = models.CharField(max_length=255)
+    signup_link = models.URLField(blank=True)
+    feed_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    search_fields = Page.search_fields + (
+        index.SearchField('body'),
+    )
+
+    @property
+    def course_index(self):
+        # Find closest ancestor which is an event index
+        return self.get_ancestors().type(CourseIndexPage).last()
+
+CoursePage.content_panels = [
+    FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
+    FieldPanel('date_from'),
+    FieldPanel('languages'),
+    FieldPanel('cost_lecture'),
+    FieldPanel('cost_outreach'),
+    FieldPanel('signup_link'),
+    FieldPanel('body', classname="full"),
+    InlinePanel(CoursePage, 'related_links', label="Related links"),
+]
+
+CoursePage.promote_panels = Page.promote_panels + [
+    ImageChooserPanel('feed_image'),
+]
+
+
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
+
 
 class FormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)

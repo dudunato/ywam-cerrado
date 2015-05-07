@@ -1,0 +1,58 @@
+.magazine {
+  background: #3E3B39;
+
+  .main {
+    padding-top: 18%;
+  }
+
+  .page-header {
+    border: 0;
+
+    h1 {
+      color: white;
+      border-bottom: 1px solid rgba(white, 0.5);
+    }
+
+    @media (max-width: 375px) {
+      margin-top: 150px;
+    }
+  }
+
+  .filtered-text {
+    color: white;
+  }
+
+  .home-magazine-block {
+    font-size: 14px;
+  }
+
+  .list-group-item {
+    border-radius: 0px;
+    margin: 0px;
+  }
+
+  .pages {
+    color: white;
+    margin-top: 20px;
+    font-size: 17px;
+  }
+
+  .breadcrumb {
+    background: #3E3B39;
+    color: white;
+
+    .active {
+      font-weight: bold;
+    }
+  }
+
+  .related_links {
+    background-color: #3E3B39;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
+    .list-group-item{
+      color: white;
+    }
+  }
+}

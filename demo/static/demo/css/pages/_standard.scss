@@ -1,0 +1,47 @@
+.standard-idx-listing {
+  .list-group-item {
+    background-color: transparent !important;
+    border: 0 !important;
+    margin-bottom: 20px;
+
+    &:first-child {
+      border-radius: 0;
+    }
+
+    .media-body {
+      padding-top: 10px;
+    }
+
+    .media-object {
+      z-index: -1;
+    }
+
+    .list-group-item-heading {
+      font-weight: bold !important;
+    }
+
+    &:hover {
+      .media-top {
+        background: rgba($main-color, 0.8);
+        -webkit-transition: all 0.4s ease-out;
+        -moz-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
+
+        img {
+          opacity: 0.2;
+        }
+      }
+
+      h4 {
+        color: $main-color;
+      }
+    }
+
+
+  }
+
+  img {
+    margin: 0 auto;
+  }
+}

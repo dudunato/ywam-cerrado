@@ -1,4 +1,4 @@
-{% load demo_tags cache compress static wagtailuserbar %}
+{% load demo_tags cache compress staticfiles wagtailuserbar i18n wagtailimages_tags %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -14,11 +14,14 @@
 
         {# External stylesheets #}
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/css/select2.min.css" rel="stylesheet" />
 
         {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
         {% compress css %}
             {# Custom stylesheets #}
             {# SCSS compilation relies on django compressor #}
+            <link rel="stylesheet" type="text/x-scss" href="{% static "demo/css/vendor/animate.min.css" %}" />
             <link rel="stylesheet" type="text/x-scss" href="{% static "demo/css/main.scss" %}" />
         {% endcompress %}
 
@@ -47,16 +50,62 @@
 
     <body class="{% block body_class %}{% endblock %}"> {# Override this block to set custom body classes on a template by template basis #}
 
-        {% wagtailuserbar %}
+        {#% wagtailuserbar %#}
 
-        {% block menu %}
-            {% get_site_root as site_root %}
-            {% top_menu parent=site_root calling_page=self %}
-        {% endblock %}
+        <header class="{% block header_class %}{% endblock %}">
+          {% block menu %}
+              {% get_site_root as site_root %}
+              {% top_menu parent=site_root calling_page=self %}
+          {% endblock %}
+
+          {% if self.get_verbose_name == 'Homepage' %}
+            <video class="cover-video" style="display: block;" class="" autoplay loop muted preload="undefined" width="100%" height="100%" poster="{% static "demo/images/default-cover.jpg" %}">
+              <source src="{% static "demo/images/cover-video.mp4" %}" type="video/mp4">
+            </video>
+
+            <div class="btn-header">
+              <a href="javascript://" class="btn btn-lg btn-primary">{% trans "Apply" %}</a>
+            </div>
+          {% else %}
+
+            {% if self.header_image %}
+              {% image self.header_image original as himgo %}
+              <picture>
+                <source srcset="{{ himgo.url }}">
+                <img id="img-cover" src="{{ himgo.url }}" alt="#">
+              </picture>
+            {% else %}
+              {% if self.get_verbose_name != 'Blog Index Page' %}
+                <picture>
+                  <source srcset="{% static "demo/images/default-cover.jpg" %}">
+                  <img id="img-cover" src="{% static "demo/images/default-cover.jpg" %}" alt="#">
+                </picture>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
+
+          {% if self.slogan %}
+            <div class="div-slogan">
+              <p class="slogan">{{ self.slogan }}  </p>
+            </div>
+          {% endif %}
+
+          {% if self.get_verbose_name == 'Blog Page' %}
+            <div style="position: absolute; left: 50%; top: 40%;">
+              <p class="simple-slogan">
+                {{ self.title }}
+                {% if self.date %}<small class="post-date text-right pull-right">{{ self.date }}</small>{% endif %}
+              </p>
+            </div>
+          {% endif %}
+
+
+        </header>
+
 
         <div class="main container">
 
-            {% breadcrumbs %}
 
             {% block heading %}
                 <div class="page-header">
@@ -66,24 +115,69 @@
 
             {% block content %}{% endblock %}
 
-            {% include 'demo/includes/prev_next.html' %}
+            {% breadcrumbs %}
 
         </div>
 
-        {% adverts %}
+        <!-- TODO -->
+        <!-- {% include 'demo/includes/prev_next.html' %} -->
+
+        {% block aside %}{% endblock %}
+
+        {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
+
+        <footer>
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 500 595.28" enable-background="new 0 0 841.89 595.28" xml:space="preserve">
+            <!-- <g> -->
+              <path d="M60.471,183.658c167.844-51.031,271.512-14.477,294.316,41.239c19.258,47.051-17.367,86.956-94.743,127.905
+                c-5.93,3.132-2.719,1.724-8.875,5.506c90.872-11.678,177.439-91.777,144.458-154.152
+                C342.089,102.863,139.788,134.828,60.471,183.658L60.471,183.658z"/>
+              <path d="M158.642,366.303C0.963,370.164,46.345,232.324,209.126,238.19
+                C61.062,262.256,46.06,348.113,158.642,366.303L158.642,366.303z"/>
+              <path d="M161.075,313.7c1.733-14.323,15.18-32.118,34.004-51.474c11.919,67.683,65.25,46.977,77.485-15.5
+                c16.982,1.847,26.094,16.691,29.847,40.441c-39.668,12.864-66.846,67.151-88.961,138.282
+                C210.298,362.672,202.378,308.396,161.075,313.7L161.075,313.7z"/>
+              <path d="M250.902,240.938c11.299,5.128,13.495,21.598,4.916,36.792c-8.58,15.189-24.695,23.356-35.994,18.234
+                c-11.279-5.118-13.485-21.598-4.906-36.793C223.498,243.987,239.614,235.816,250.902,240.938L250.902,240.938z"/>
+            <!-- </g> -->
+          </svg>
+
+          {% get_site_root as site_root %}
+          {% top_menu parent=site_root calling_page=self %}
+
+          <div class="row copyright">
+            <hr>
+            <p class="text-center">
+              <span ><a href="tel:+553496862624" class="link">+55-34-96862624</a></span>,
+              <span >
+                <span>MG 452  KM 1.4</span>
+                <span>Uberlândia</span>,
+                <span>Minas Gerais</span>,
+                <span>38400-000</span>,
+                <span>Brasil</span>.
+              </span>
+              <br>© <span >{% trans "Youth With A Mission (Cerrado)" %}</span> <a href="http://www.ywam.org" class="link" target="_blank"> {% trans "YWAM International" %}</a>.
+            </p>
+          </div>
+
+        </footer>
 
         {# External javascript #}
         <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.2/js/select2.min.js"></script>
 
         {% compress js %}
             <script src="{% static "demo/js/vendor/fluidvids.js" %}"></script>
+            <script src="{% static "demo/js/vendor/jquery.lettering-0.6.1.min.js" %}"></script>
+            <script src="{% static "demo/js/vendor/jquery.textillate.js" %}"></script>
             {# Custom javascript #}
             {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
             <script src="{% static "demo/js/main.js" %}"></script>
         {% endcompress %}
 
         {% block extra_js %}{% endblock %} {# Override this block in individual templates in order to add javascript on a template by template basis #}
-        
+
     </body>
 </html>

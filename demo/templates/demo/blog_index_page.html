@@ -1,22 +1,29 @@
 {% extends "demo/base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
+
+{% block body_class %}magazine{% endblock %}
+
+{#  {% block heading %}{% endblock %} #}
 
 {% block content %}
-    {% include "demo/includes/intro.html" with intro=self.intro only %}
+    {# {% include "demo/includes/intro.html" with intro=self.intro only %} #}
 
     {% if request.GET.tag|length %}
-        <h4>Showing posts tagged as {{ request.GET.tag|safe }} <a href=" {% pageurl self %} ">Show all</a></h4>
+    <h5 class="filtered-text text-right">{% trans "Posts tagged as" %} <strong>{{ request.GET.tag|safe }}</strong> <a class="link" href=" {% pageurl self %} ">{% trans "Show all" %}...</a></h5>
     {% endif %}
 
-    <div class="list-group">
-        {# Uses serve method defined in models.py - allows for paging if required #}
-        {# See also standard index for creating a listing with a tag #}
-        {% for blog in blogs %}
-            {% include "demo/includes/blog_list_item.html" %}
-        {% empty %}
-            No blogs found
-        {% endfor %}
+    <div class="home-magazine-block col-sm-12">
+      {# <div class="home-block-header"><h3 class="home-block-title-inverse">{% trans "Magazine" %}</h3></div> #}
+      <div class="list-group">
+          {# Uses serve method defined in models.py - allows for paging if required #}
+          {# See also standard index for creating a listing with a tag #}
+          {% for blog in blogs %}
+              {% include "demo/includes/blog_list_item.html" %}
+          {% empty %}
+              {% trans "Page" %}
+          {% endfor %}
+      </div>
     </div>
 
     {# Pagination - uses django.core.paginator #}
@@ -28,7 +35,7 @@
             {% endif %}
         </div>
         <div class="col-sm-4 pages">
-            Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}
+            {% trans "Page" %} {{ blogs.number }} {% trans "of" %} {{ blogs.paginator.num_pages }}
         </div>
         <div class="col-sm-4 next">
             {% if blogs.has_next %}
@@ -37,5 +44,4 @@
         </div>
     </div>
 
-    {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
 {% endblock %}

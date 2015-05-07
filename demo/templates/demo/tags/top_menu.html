@@ -1,23 +1,24 @@
-{% load demo_tags wagtailcore_tags %}
+{% load demo_tags wagtailcore_tags staticfiles %}
 {% get_site_root as site_root %}
 
 {# Implementation of bootstrap theme dropdown menu - shows top level links and their children #}
-<div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
+<div role="navigation" class="navbar col-sm-12">
+    <div >
         <div class="navbar-header">
-            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+            <!-- <button data&#45;target=".navbar&#45;collapse" data&#45;toggle="collapse" class="navbar&#45;toggle" type="button"> -->
+            <!--     <span class="sr&#45;only">Toggle navigation</span> -->
+            <!--     <span class="icon&#45;bar"></span> -->
+            <!--     <span class="icon&#45;bar"></span> -->
+            <!--     <span class="icon&#45;bar"></span> -->
+            <!-- </button> -->
             {# Link to home page #}
-            <a href="{% pageurl site_root %}" class="navbar-brand" title="{{ site_root.title }}" data-placement="bottom">
-                <i class="glyphicon glyphicon-home"></i>
+            <a href="{% pageurl site_root %}" class="navbar-brand logo {{request.LANGUAGE_CODE}}" title="{{ site_root.title }}" data-placement="bottom">
             </a>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+        <div class="col-sm-7 pull-right nav-footer">
+          <div class="pull-right  col-sm-12 no-padding">
+            <div class="col-sm-12 no-padding">
+              <ul class="nav navbar-nav nav-footer-align">
                 {% for menuitem in menuitems %}
                     <li class="{% if menuitem.show_dropdown %}dropdown{% endif %}{% if menuitem.active %} active{% endif %}">
                         {% if menuitem.show_dropdown %}
@@ -26,11 +27,27 @@
                         {% else %}
                             <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
                         {% endif %}
-                    </li>       
+                    </li>
                 {% endfor %}
-            </ul>
-            <form class="navbar-form navbar-right" role="search" action="{% url 'wagtailsearch_search' %}" method="get">
-                <div class="input-group">
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="tool-bar col-sm-7 pull-right">
+              <form  action="/i18n/setlang/" method="post" class="lang pull-right">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{% next_pg_translated calling_page.url request.LANGUAGE_CODE %}" />
+                <select name="language" class="col-sm-6 lang-field">
+                  <option value="pt-br" {% if request.LANGUAGE_CODE == 'pt-br' %} selected {% endif %} >BR</option>
+                    <option value="en" {% if request.LANGUAGE_CODE == 'en' %} selected {% endif %}>EN</option>
+                </select>
+                <i class="fa fa-globe no-padding pull-right"> </i>
+              </form>
+
+              <form class="no-padding pull-right col-sm-8" role="search" action="{% url 'wagtailsearch_search' %}" method="get">
+                <div class="input-group search-box pull-right">
                     <input type="text" name="q" class="form-control" placeholder="Search…" value="{{ request.GET.q}}" />
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default">
@@ -38,7 +55,7 @@
                         </button>
                     </div>
                 </div>
-            </form>
-        </div>
+              </form>
+            </div>
     </div>
 </div>

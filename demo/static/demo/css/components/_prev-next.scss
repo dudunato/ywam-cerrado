@@ -1,0 +1,17 @@
+.pager {
+  margin: 0;
+
+  a {
+    background-color: $main-color !important;
+    border-radius: 0 !important;
+    color: white;
+    border: 0 !important;
+
+    &:hover {
+      background-color: rgba($main-color, 0.5) !important;
+      color: $font-color;
+      font-weight: bold;
+    }
+
+  }
+}

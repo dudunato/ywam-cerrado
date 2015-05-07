@@ -17,3 +17,9 @@
 &sensor=false&markers=color:green|{{ self.post_code }}{% if google_maps_key %}&key={{ google_maps_key }}{% endif %}" />
 	{% endif %}
 {% endblock %}
+
+{% block aside %}
+
+   {% form_page calling_page=self  %}
+
+{% endblock %}

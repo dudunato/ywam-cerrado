@@ -1,0 +1,40 @@
+{% extends "demo/base.html" %}
+{% load demo_tags wagtailcore_tags wagtailimages_tags i18n %}
+
+{% block content %}
+    {% include "demo/includes/intro.html" with intro=self.intro only %}
+
+    <div class="col-sm-8">
+      {% include "demo/includes/body.html" with body=self.body only %}
+    </div>
+
+
+    <aside class="course-aside pull-right col-sm-4 text-center">
+      <div>
+        <i class="fa fa-calendar-o fa-2x"></i>
+        <h5>{% trans "Date" %}: <strong>{{self.date_from}}</strong></h5>
+      </div>
+
+      <div>
+        <i class="fa fa-language fa-2x"></i>
+        <h5>{% trans "Languages" %}: <strong>{{self.languages}}</strong></h5>
+
+      </div>
+
+      <div>
+        <i class="fa fa-credit-card fa-2x"></i>
+        <h5>{% trans "Lecture fees" %}: <strong>{{self.cost_lecture}}</strong></h5>
+        <h5>{% trans "Outreach fees" %}: <strong>{{self.cost_outreach}}</strong></h5>
+
+      </div>
+
+      <a class="btn btn-default btn-lg" href="">{% trans "Learn more about DTS" %}</a>
+
+    </aside>
+{% endblock %}
+
+{% block aside %}
+   {% form_page calling_page=self  %}
+{% endblock %}
+
+

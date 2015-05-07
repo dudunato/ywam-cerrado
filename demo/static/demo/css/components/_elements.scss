@@ -1,0 +1,52 @@
+.btn-primary {
+  background-color: transparent !important;
+  border: 1px solid white;
+  border-radius: 0px;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+
+  &:hover {
+    background-color: rgba($main-color, 0.7) !important;
+    border: 1px solid $main-color;
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+  }
+
+}
+
+.btn-default {
+  background-color: transparent !important;
+  border: 1px solid $main-color;
+  color: $main-color;
+  border-radius: 0px;
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+
+  &:hover {
+    background-color: $main-color !important;
+    border: 1px solid $main-color;
+    color: white;
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+  }
+
+}
+
+.select2-dropdown {
+  background-color: rgba(#000000, 0.5) !important;
+  color: white !important;
+  border: 0px !important;
+  border-radius: 0px !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: $main-color;
+}

@@ -1,0 +1,17 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="cd-timeline-block">
+  <a href="{{course.url}}">
+  <div class="cd-timeline-content">
+    <h2>{{course.title}}</h2>
+    <!-- <p>In november 2013, God told me to give Him all my talents. So my family and I started praying</p> -->
+    <span class="cd-date">{{course.date_from}}</span>
+  </div> <!-- cd-timeline-content -->
+
+  <div class="cd-timeline-img cd-picture">
+    {% image course.feed_image fill-230x230-c100 as img %}
+    <img src="{{img.url}}">
+  </div> <!-- cd-timeline-img -->
+  </a>
+
+</div> <!-- cd-timeline-block -->

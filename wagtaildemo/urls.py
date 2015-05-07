@@ -20,6 +20,7 @@ wagtailsearch_register_signal_handlers()
 
 urlpatterns = patterns('',
     url(r'^django-admin/', include(admin.site.urls)),
+    (r'^i18n/', include('django.conf.urls.i18n')),
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^search/', include(wagtailsearch_frontend_urls)),

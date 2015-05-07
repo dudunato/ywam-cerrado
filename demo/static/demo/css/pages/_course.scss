@@ -1,0 +1,19 @@
+.course-aside {
+  background-color: #DEDEDE;
+  padding-bottom: 20px;
+
+  div {
+    margin: 43px 43px;
+    border-bottom: 1px solid rgba(#000000, 0.1);
+
+    &:hover {
+      border-bottom: 1px solid $main-color;
+
+      i {
+        color: $main-color;
+      }
+    }
+
+  }
+
+}

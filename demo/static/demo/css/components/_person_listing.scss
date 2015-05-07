@@ -1,0 +1,33 @@
+.people {
+  .list-group-item {
+    background-color: transparent;
+
+    &:hover {
+      border-left: 1px solid $main-color !important;
+
+      h5 {
+        color: $main-color;
+      }
+
+      .media-object {
+        background: black;
+      }
+    }
+  }
+
+  .media-body {
+
+    h4 {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+  }
+
+  img {
+    margin: 0 auto;
+  }
+
+}
+
+

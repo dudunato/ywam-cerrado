@@ -1,0 +1,20 @@
+{% extends "demo/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    {% include "demo/includes/intro.html" with intro=self.intro only %}
+
+    {% with self.courses.all as courses %}
+        {% if courses %}
+            <section id="cd-timeline" class="cd-container">
+                {% for course in courses %}
+                    {% include "demo/includes/course_idx_list_item.html" %}
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endwith %}
+
+    {% include "demo/includes/body.html" with body=self.body only %}
+
+    {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}

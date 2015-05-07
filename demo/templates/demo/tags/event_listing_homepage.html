@@ -1,6 +1,8 @@
+{% load i18n %}
+
 {% if events %}
-  <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">Upcoming events</h3></div>
+  <div class="home-block col-sm-4">
+    <div class="home-block-header"><h3 class="home-block-title">{% trans "Events" %}</h3></div>
     <div class="list-group">
       {% for event in events %}
         {% include "demo/includes/event_list_item.html" %}

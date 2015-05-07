@@ -1,0 +1,504 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Exo+2:400,700,100,900);
+
+
+html {
+    background-color: $main-color;
+}
+
+/* fonts */
+body {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    background-color: #f2f2f2;
+    font-size: 20px;
+}
+
+p {
+    text-align: justify;
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+header {
+  picture {
+    img {
+      width: 100%;
+      @media (max-width: 375px) {
+        max-height: 250px;
+      }
+    }
+  }
+}
+
+.navbar {
+  position: absolute;
+  z-index: 9999;
+}
+
+.nav {
+  float: right;
+  margin-top: 11px;
+  // margin-right: 28px;
+
+  li {
+    font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif !important;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  li.active {
+    a {
+      color: $main-color;
+      text-shadow: none;
+    }
+  }
+
+  a {
+    font-size: 14px;
+    color: white;
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+    text-shadow: 1px 1px #000;
+
+    &:hover {
+      color: $main-color;
+      text-shadow: none;
+      background-color: transparent !important;
+    }
+
+    &:focus {
+      background-color: rgba(241, 90, 41, 0.12) !important;
+    }
+
+    @media (max-width: 1024px) {
+      padding: 10px 6px !important;
+    }
+
+    @media (max-width: 375px) {
+      font-size: 10px;
+      padding: 0 !important;
+    }
+  }
+
+  @media (max-width: 375px) {
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.lang {
+  text-transform: uppercase;
+  clear: right;
+  // margin-right: 36px;
+  margin-left: -1px;
+  font-size: 12px;
+
+  i {
+    font-size: 25px;
+    display: block;
+    margin-right: 11px;
+    margin-top: 3px;
+    color: rgba(#000000, 0.5);
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+  }
+
+  &:hover {
+    i {
+      color: $main-color;
+    }
+  }
+}
+
+.lang {
+  .select2-selection {
+    border-radius: 0px;
+    border: 0px;
+    background-color: rgba(#000000, 0.5) !important;
+    color: $main-color;
+    height: 34px;
+  }
+
+}
+
+.tool-bar {
+  @media (max-width: 375px) {
+    margin-top: 8px;
+  }
+}
+
+.select2-results__options {
+  font-size: 12px;
+}
+
+.lang .select2 {
+  width: 50px !important;
+}
+
+.lang .select2-selection__rendered {
+  color: $main-color !important;
+  padding-top: 2px;
+}
+
+.search-box {
+  max-width: 465px;
+
+  @media (max-width: 375px) {
+    width: 210px;
+  }
+
+  @media (max-width: 360px) {
+    width: 160px;
+  }
+
+  input {
+    border-radius: 0px;
+    background-color: black;
+    border: 1px solid black;
+    opacity: 0.5;
+    color: $main-color;
+    font-size: 20px;
+    font-weight: 100;
+
+    &:focus {
+      outline: 0 !important;
+      border: none;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(233, 109, 17, 0.6);
+    }
+
+    @media (max-width: 375px) {
+      font-size: 14px;
+    }
+  }
+
+  button {
+    border-radius: 0px;
+    background-color: #000 !important;
+    border: 1px solid #000 !important;
+    color: $font-color !important;
+    opacity: 0.5;
+    margin-left: 0px !important;
+
+    &:hover {
+      background-color: #000 !important;
+      color: $main-color !important;
+      border: 1px solid #000;
+    }
+  }
+}
+
+.logo {
+  width: 300px;
+  height: 125px;
+  margin-top: -18px;
+  fill: #F15A29;
+
+  @media (max-width: 375px) {
+    width: 200px;
+    height: 75px;
+    margin: 0 auto;
+    display: block;
+    float: none;
+  }
+}
+
+.pt-br {
+  background: url('../../demo/images/logo-pt-br.svg');
+  background-size: 300px 178px;
+
+  @media (max-width: 375px) {
+    background-size: 195px 83px;
+  }
+}
+
+.en {
+  background: url('../../demo/images/logo-en.svg');
+  background-size: 300px 178px;
+}
+
+.div-slogan{
+  position: absolute;
+  left: 50%;
+  top: 40%;
+
+  @media (max-width: 1024px) {
+    top: 28%;
+  }
+
+  @media (max-width: 375px) {
+    display: none;
+  }
+}
+
+.slogan {
+  position: relative;
+  left: -50%;
+  font-family: "Exo 2",sans-serif;
+  text-transform: uppercase;
+  text-rendering: optimizelegibility;
+  display: block;
+  font-size: 65px;
+  font-weight: bold;
+  line-height: 1.1;
+  color: #FFF;
+  text-align: center;
+  opacity: 0.8;
+
+  @media (max-width: 1024px) {
+    font-size: 45px;
+  }
+}
+
+.simple-slogan {
+  position: relative;
+  left: -50%;
+  font-family: "Exo 2",sans-serif;
+  text-transform: uppercase;
+  text-rendering: optimizelegibility;
+  display: block;
+  font-size: 60px;
+  font-weight: bold;
+  line-height: 1.1;
+  color: #FFF;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.btn-header {
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  z-index: 3;
+
+  a {
+    position: relative;
+    left: -50%;
+    width: 257px;
+  }
+
+  @media (max-width: 1024px) {
+    top: 45%;
+  }
+
+  @media (max-width: 375px) {
+    display: none;
+  }
+
+}
+
+/* Style pager */
+.col-sm-4.pages {
+    text-align: center;
+}
+
+.col-sm-4.next {
+    text-align: right;
+}
+
+.main {
+    padding-top: $navbar-height + $padding-vertical;
+    margin-bottom: 70px;
+}
+
+/* body image styles - classes supplied by rich text editor */
+.body-content {
+    width: 100%;
+    overflow: hidden;
+    clear: both;
+    margin-bottom: 1em;
+    img {
+        margin-bottom: 2%;
+        margin-top: 2
+    }
+
+    img.full-width {
+        width: 100%;
+    }
+
+    img.left {
+        width: 45%;
+        margin-right: 5%;
+        float: left;
+    }
+
+    img.right {
+        width: 45%;
+        margin-left: 5%;
+        float: right;
+    }
+
+    h1, h2, h3, h4, h5 {
+        clear: both;
+    }
+
+    a{
+      color: $main-color;
+      text-decoration: underline;
+
+      &:hover {
+       color: $main-color;
+       text-decoration: underline;
+      }
+
+      &:visited {
+       color: $main-color;
+       text-decoration: underline;
+      }
+    }
+}
+
+/* List styling - tweaks to include images */
+a.list-group-item {
+    overflow: hidden;
+    .list-group-item-text {
+        margin-top: 1%;
+        img {
+            float: left;
+            margin-right: 2%;
+            margin-bottom: 1%;
+        }
+    }
+}
+
+.advert-list {
+    margin-top: $padding-vertical;
+    margin-bottom: 0;
+    padding: $padding-vertical 0;
+    background-color: $html-background-color;
+    border-top: 1px solid darken($html-background-color, 25%);
+}
+
+.link {
+  color: $main-color;
+  text-decoration: underline;
+
+  &:hover {
+   color: $main-color;
+   text-decoration: underline;
+  }
+
+  &:visited {
+   color: $main-color;
+   text-decoration: underline;
+  }
+}
+
+footer {
+  position: relative;
+  height: 340px;
+  // padding: 50px;
+  padding-top: 25px;
+  color: #dfdfdf;
+  clear: both;
+  overflow: hidden;
+  background-color: #3E3B39;
+  font-size: 11px;
+
+  svg {
+    width: 60px;
+    display: block;
+    margin: 0 auto;
+    fill: white;
+  }
+
+  .nav {
+
+    a {
+      text-shadow: none;
+    }
+  }
+
+  .navbar-header {
+    display: none;
+  }
+
+  .nav-footer {
+    margin: 0 auto !important;
+    float: none !important;
+
+  }
+
+  .tool-bar {
+    @include centerer;
+    max-width: 545px;
+    margin-top: 30px;
+
+    @media (max-width: 1024px) {
+      margin-left: -20px;
+    }
+
+
+    @media (max-width: 375px) {
+      position: relative;
+    }
+  }
+
+  .nav-footer-align {
+    @include centerer;
+    max-width: 600px;
+    width: 100%;
+
+    @media (max-width: 1024px) {
+      max-width: 495px;
+    }
+
+    @media (max-width: 375px) {
+      position: relative;
+    }
+  }
+
+  .copyright {
+    clear: both;
+    margin-top: 170px;
+
+    hr {
+      opacity: 0.1;
+    }
+
+    @media (max-width: 375px) {
+      font-size: 8px;
+    }
+  }
+
+
+}
+
+.page-header {
+  h1 {
+    font-family: "Exo 2",sans-serif;
+    font-size: 80px;
+    border-bottom: 1px solid rgba(0,0,0, 0.1);
+
+    &:before {
+      content: " ";
+      width: 3px;
+      background-color: $main-color;
+      height: 83px;
+      display: block;
+      float: left;
+      margin-right: 10px;
+
+      @media (max-width: 375px) {
+        height: 48px;
+      }
+    }
+
+    @media (max-width: 375px) {
+      font-size: 47px;
+    }
+  }
+}
+
+.breadcrumb {
+  font-size: 15px;
+  clear: both;
+}
+
+.well {
+  border-radius: 0px;
+}

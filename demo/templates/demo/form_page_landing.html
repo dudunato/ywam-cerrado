@@ -1,6 +1,21 @@
 {% extends "demo/base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags demo_tags %}
+
+{% block body_class %}form-full-page{% endblock %}
+
+{% block heading %}{% endblock %}
 
 {% block content %}
-    {{ self.thank_you_text|richtext }}
+{% endblock %}
+
+{% block aside %}
+  <aside class="form-answer">
+    <div class="container">
+      {% breadcrumbs %}
+      <div class="page-header">
+        <h1 class="text-center">{{ self.thank_you_text|richtext }}</h1>
+      </div>
+    </div>
+  </aside>
+
 {% endblock %}

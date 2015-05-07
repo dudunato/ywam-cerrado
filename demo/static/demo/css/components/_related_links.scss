@@ -1,0 +1,27 @@
+.related_links {
+  background-color: #DEDEDE;
+  padding-bottom: 40px;
+
+  .list-group-item {
+    background-color: transparent;
+
+    &:hover {
+      h5 {
+        color: $main-color;
+      }
+    }
+  }
+
+  .media-body {
+
+    h5 {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+  }
+
+  img {
+    margin: 0 auto;
+  }
+}

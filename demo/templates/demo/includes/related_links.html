@@ -1,19 +1,31 @@
+{% load wagtailcore_tags wagtailimages_tags i18n %}
+
 {% if related_links %}
-    <div class="page-header"></div>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Related links</h3>
+<aside class="related_links">
+  <div class="container">
+        <div class="home-block col-sm-12">
+                <div class="home-block-header">
+                  <h3 class="home-block-title">{% trans "More like this" %}</h3>
                 </div>
-                <div class="panel-body">
-                    <ul>
+                <div class="list-group text-center">
                     {% for related_link in related_links %}
-                        <li><a href="{{ related_link.link }}">{{ related_link.title }}</a></li>
+                        <a class="list-group-item col-sm-2" href="{{ related_link.link }}">
+                          <div class="media">
+                            {% if related_link.page.feed_image %}
+                              <div class="media-top">
+                                {% image related_link.page.feed_image fill-150x150-c100 as img %}
+                                <img class="media-object img-circle" src="{{ img.url }}" />
+                              </div>
+                            {% endif %}
+                            <div class="media-body">
+                              <h5 class="media-heading">{{ related_link.title }}</h5>
+                            </div>
+                          </div>
+                        </a>
                     {% endfor %}
-                    </ul>
                 </div>
-            </div>
         </div>
     </div>
+</aside>
+
 {% endif %}

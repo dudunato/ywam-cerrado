@@ -1,6 +1,7 @@
 # Django settings for wagtaildemo project.
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 BASE_DIR = PROJECT_ROOT
@@ -24,7 +25,7 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '',  # Set to empty string for localhost.
         'PORT': '',  # Set to empty string for default.
-        'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
+        'CONN_MAX_AGE': 600,  # number of seconds database connections should
     }
 }
 
@@ -45,6 +46,16 @@ TIME_ZONE = 'Europe/London'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-gb'
 
+# multilingual support
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGES = (
+    ('en', _("English")),
+    ('pt-br', _("Portuguese")),
+)
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -53,9 +64,7 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-# Note that with this set to True, Wagtail will fall back on using numeric dates
 # in date fields, as opposed to 'friendly' dates like "24 Sep 2013", because
-# Python's strptime doesn't support localised month names: https://code.djangoproject.com/ticket/13339
 USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
@@ -94,7 +103,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
 )
 
@@ -108,12 +117,13 @@ SECRET_KEY = 'wq21wtjo3@d_qfjvd-#td!%7gfy2updj2z+nev^k$iy%=m4_tr'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -135,7 +145,6 @@ ROOT_URLCONF = 'wagtaildemo.urls'
 WSGI_APPLICATION = 'wagtaildemo.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -168,6 +177,7 @@ INSTALLED_APPS = (
     'wagtail.wagtailsites',
 
     'demo',
+    'bootstrapform',
 )
 
 EMAIL_SUBJECT_PREFIX = '[wagtaildemo] '
