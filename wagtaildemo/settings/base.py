@@ -65,6 +65,9 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 # in date fields, as opposed to 'friendly' dates like "24 Sep 2013", because
+# Note that with this set to True, Wagtail will fall back on using numeric dates
+# in date fields, as opposed to 'friendly' dates like "24 Sep 2013", because
+# Python's strptime doesn't support localised month names: https://code.djangoproject.com/ticket/13339
 USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
@@ -103,7 +106,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
     'compressor.finders.CompressorFinder',
 )
 
@@ -124,6 +127,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+#     'django.template.loaders.eggs.Loader',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -145,6 +154,7 @@ ROOT_URLCONF = 'wagtaildemo.urls'
 WSGI_APPLICATION = 'wagtaildemo.wsgi.application'
 
 TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )

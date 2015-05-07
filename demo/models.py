@@ -755,3 +755,4 @@ FormPage.content_panels = [
         FieldPanel('subject', classname="full"),
     ], "Email")
 ]
+

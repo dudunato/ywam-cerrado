@@ -6,11 +6,15 @@
 
     {# Listing created with a tag - allows filtering by whether the page is live #}
     {# See also the blog index or events index where the listing is created from a method defined in models.py #}
+<<<<<<< HEAD
     <div class="standard-idx-listing col-sm-12">
       {% standard_index_listing calling_page=self %}
     </div>
 
     {% person_listing calling_page=self %}
+=======
+    {% standard_index_listing calling_page=self %}
+>>>>>>> 4f21802dc4ba850134b01aab0dfc7f915eaa2b3c
 
     {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
 {% endblock %}
