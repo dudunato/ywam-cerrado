@@ -20,11 +20,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wagtaildemo',
-        'USER': 'postgres',
-        'PASSWORD': '',
-        'HOST': '',  # Set to empty string for localhost.
-        'PORT': '',  # Set to empty string for default.
+        # 'NAME': 'wagtaildemo',
+        'NAME': os.environ.get("PGDATABASE"),
+        'USER': os.environ.get("OPENSHIFT_POSTGRESQL_DB_USERNAME"),
+        # 'USER': 'postgres',
+        'PASSWORD': os.environ.get("OPENSHIFT_POSTGRESQL_DB_PASSWORD"),
+        # 'PASSWORD': '',
+        # 'HOST': '',  # Set to empty string for localhost.
+        # 'PORT': '',  # Set to empty string for default.
         'CONN_MAX_AGE': 600,  # number of seconds database connections should
     }
 }
