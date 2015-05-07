@@ -716,7 +716,7 @@ class CoursePage(Page, TranslatablePageMixin):
 
     @property
     def course_index(self):
-        # Find closest ancestor which is an event index;
+        # Find closest ancestor which is an event index
         return self.get_ancestors().type(CourseIndexPage).last()
 
 CoursePage.content_panels = [
