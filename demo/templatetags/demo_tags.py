@@ -82,8 +82,8 @@ def top_menu_children(context, parent):
     takes_context=True
 )
 def standard_index_listing(context, calling_page):
-    pages = StandardPage.objects.live().descendant_of(calling_page)
-    pages_index = StandardIndexPage.objects.live().descendant_of(calling_page)
+    pages = StandardPage.objects.live().child_of(calling_page)
+    pages_index = StandardIndexPage.objects.live().child_of(calling_page)
 
     return {
         'pages': pages,

@@ -807,10 +807,25 @@ class FormField(AbstractFormField):
 
 class FormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    feed_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     thank_you_text = RichTextField(blank=True)
 
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('intro', classname="full"),
     InlinePanel(FormPage, 'form_fields', label="Form fields"),
     FieldPanel('thank_you_text', classname="full"),
@@ -819,5 +834,9 @@ FormPage.content_panels = [
         FieldPanel('from_address', classname="full"),
         FieldPanel('subject', classname="full"),
     ], "Email")
+]
+
+FormPage.promote_panels = Page.promote_panels + [
+    ImageChooserPanel('feed_image'),
 ]
 
