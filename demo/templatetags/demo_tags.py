@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils import translation
 
 from demo.models import PersonPage, BlogPage, EventPage, CoursePage, \
-    Advert, Page, StandardPage, FormPage
+    Advert, Page, StandardPage, StandardIndexPage, FormPage
 
 register = template.Library()
 
@@ -83,8 +83,11 @@ def top_menu_children(context, parent):
 )
 def standard_index_listing(context, calling_page):
     pages = StandardPage.objects.live().descendant_of(calling_page)
+    pages_index = StandardIndexPage.objects.live().descendant_of(calling_page)
+
     return {
         'pages': pages,
+        'pages_index': pages_index,
         # required by the pageurl tag that we want to use within this template
         'request': context['request'],
     }
