@@ -259,6 +259,13 @@ class StandardIndexPageRelatedLink(Orderable, RelatedLink):
 
 class StandardIndexPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -273,6 +280,7 @@ class StandardIndexPage(Page, TranslatablePageMixin):
 
 StandardIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('intro', classname="full"),
     InlinePanel(StandardIndexPage, 'related_links', label="Related links"),
 ]
@@ -294,6 +302,13 @@ class StandardPageRelatedLink(Orderable, RelatedLink):
 
 class StandardPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     body = RichTextField(blank=True)
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -310,6 +325,7 @@ class StandardPage(Page, TranslatablePageMixin):
 
 StandardPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('intro', classname="full"),
     InlinePanel(StandardPage, 'carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
@@ -329,7 +345,20 @@ class BlogIndexPageRelatedLink(Orderable, RelatedLink):
 
 class BlogIndexPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
-
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    feed_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     search_fields = Page.search_fields + (
         index.SearchField('intro'),
     )
@@ -370,11 +399,14 @@ class BlogIndexPage(Page, TranslatablePageMixin):
 
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('intro', classname="full"),
     InlinePanel(BlogIndexPage, 'related_links', label="Related links"),
 ]
 
-BlogIndexPage.promote_panels = Page.promote_panels
+BlogIndexPage.promote_panels = Page.promote_panels + [
+    ImageChooserPanel('feed_image'),
+]
 
 
 # Blog page
@@ -393,6 +425,13 @@ class BlogPageTag(TaggedItemBase):
 
 class BlogPage(Page, TranslatablePageMixin):
     body = RichTextField()
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date = models.DateField("Post date")
     feed_image = models.ForeignKey(
@@ -414,6 +453,7 @@ class BlogPage(Page, TranslatablePageMixin):
 
 BlogPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('date'),
     FieldPanel('body', classname="full"),
     InlinePanel(BlogPage, 'carousel_items', label="Carousel items"),
@@ -479,6 +519,13 @@ PersonPage.promote_panels = Page.promote_panels + [
 
 class ContactPage(Page, ContactFields, TranslatablePageMixin):
     body = RichTextField(blank=True)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -493,6 +540,7 @@ class ContactPage(Page, ContactFields, TranslatablePageMixin):
 
 ContactPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('body', classname="full"),
     MultiFieldPanel(ContactFields.panels, "Contact"),
 ]
@@ -587,6 +635,13 @@ class EventPage(Page, TranslatablePageMixin):
     body = RichTextField(blank=True)
     cost = models.CharField(max_length=255)
     signup_link = models.URLField(blank=True)
+    header_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -626,6 +681,7 @@ class EventPage(Page, TranslatablePageMixin):
 
 EventPage.content_panels = [
     FieldPanel('title', classname="full title"),
+    ImageChooserPanel('header_image'),
     FieldPanel('date_from'),
     FieldPanel('date_to'),
     FieldPanel('time_from'),
@@ -660,6 +716,13 @@ class CourseIndexPage(Page, TranslatablePageMixin):
         related_name='+'
     )
     body = RichTextField(blank=True)
+    feed_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
 
     search_fields = Page.search_fields + (
         index.SearchField('intro'),
@@ -681,7 +744,9 @@ CourseIndexPage.content_panels = [
     InlinePanel(CourseIndexPage, 'related_links', label="Related links"),
 ]
 
-CourseIndexPage.promote_panels = Page.promote_panels
+CourseIndexPage.promote_panels = Page.promote_panels + [
+    ImageChooserPanel('feed_image'),
+]
 
 
 class CoursePageRelatedLink(Orderable, RelatedLink):
