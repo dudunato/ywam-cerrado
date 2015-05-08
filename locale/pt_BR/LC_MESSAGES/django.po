@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-26 12:41+0100\n"
+"POT-Creation-Date: 2015-05-08 19:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,27 +22,109 @@ msgstr ""
 msgid "Apply"
 msgstr "Inscreva-se"
 
-#: demo/templates/demo/base.html:146
+#: demo/templates/demo/base.html:160
 msgid "Youth With A Mission (Cerrado)"
 msgstr "Jovens Com Uma Missão (Cerrado)"
 
-#: demo/templates/demo/base.html:146
+#: demo/templates/demo/base.html:160
 msgid "YWAM International"
 msgstr "JOCUM Internacional"
 
-#: demo/templates/demo/home_page.html:28
+#: demo/templates/demo/blog_index_page.html:13
+msgid "Posts tagged as"
+msgstr "Posts caregorizado como"
+
+#: demo/templates/demo/blog_index_page.html:13
+msgid "Show all"
+msgstr "Mostrar todos"
+
+#: demo/templates/demo/blog_index_page.html:24
+#: demo/templates/demo/blog_index_page.html:38
+msgid "Page"
+msgstr "Pg."
+
+#: demo/templates/demo/blog_index_page.html:38
+msgid "of"
+msgstr "de"
+
+#: demo/templates/demo/course_page.html:15
+#: demo/templates/demo/event_page.html:8
+msgid "Date"
+msgstr "Data"
+
+#: demo/templates/demo/course_page.html:20
+msgid "Languages"
+msgstr "Idiomas"
+
+#: demo/templates/demo/course_page.html:26
+msgid "Lecture fees"
+msgstr "Preço do Teórico"
+
+#: demo/templates/demo/course_page.html:27
+msgid "Outreach fees"
+msgstr "Preço do Prático"
+
+#: demo/templates/demo/course_page.html:31
+msgid "Learn more about DTS"
+msgstr "Saiba mais sobre ETED"
+
+#: demo/templates/demo/event_page.html:18
+msgid "Location"
+msgstr "Local"
+
+#: demo/templates/demo/event_page.html:27
+msgid "Cost"
+msgstr "Preço"
+
+#: demo/templates/demo/event_page.html:40
+msgid "Add to Calendar"
+msgstr "Adicionar ao Calendário"
+
+#: demo/templates/demo/form_page.html:32 demo/templates/demo/tags/form.html:16
+msgid "Send"
+msgstr "Enviar"
+
+#: demo/templates/demo/home_page.html:34
 msgid "Welcome to "
 msgstr "Bem-vindo ao"
 
-#: demo/templates/demo/home_page.html:29
+#: demo/templates/demo/home_page.html:36 demo/templates/demo/home_page.html:38
 msgid "Cerrado"
 msgstr "Cerrado"
+
+#: demo/templates/demo/includes/related_links.html:8
+msgid "More like this"
+msgstr "E muito mais"
+
+#: demo/templates/demo/search_results.html:4
+#: demo/templates/demo/search_results.html:9
+msgid "Search"
+msgstr "Buscar"
+
+#: demo/templates/demo/search_results.html:4
+#: demo/templates/demo/search_results.html:9
+msgid "results"
+msgstr "resultados"
+
+#: demo/templates/demo/search_results.html:44
+msgid "No results found"
+msgstr "Nenhum resultado encontrado"
+
+#: demo/templates/demo/search_results.html:46
+msgid "You didn't search anything!"
+msgstr "Opa, você não pesquisou nada!"
 
 #: demo/templates/demo/tags/blog_listing_homepage.html:5
 msgid "Magazine"
 msgstr "Revista"
 
-#: demo/templates/demo/tags/course_listing_homepage.html:5
+#: demo/templates/demo/tags/breadcrumbs.html:12
+#, fuzzy
+#| msgid "Cerrado"
+msgid "YWAM Cerrado"
+msgstr "Cerrado"
+
+#: demo/templates/demo/tags/course_listing_homepage.html:7
 msgid "Courses"
 msgstr "Cursos"
 
