@@ -14,7 +14,7 @@ WAGTAILSEARCH_BACKENDS = {
 INSTALLED_APPS+= (
     'djcelery',
     'kombu.transport.django',
-    'gunicorn',    
+    'gunicorn',
 )
 
 
