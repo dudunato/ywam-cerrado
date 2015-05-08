@@ -1,0 +1,22 @@
+{% load wagtailcore_tags bootstrap i18n %}
+
+{% if formpage %}
+<aside class="form-page">
+  <div class="container">
+    <h2 class="">{{formpage.title}}</h2>
+    <div class="col-sm-6">
+      {{formpage.intro | richtext}}
+    </div>
+
+    <form class="form-horizontal col-sm-6" action="{{ formpage.url }}" method="POST">
+      {% csrf_token %}
+      {{ form | bootstrap_horizontal}}
+      <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
+          <button type="submit" class="btn btn-primary btn-lg">{% trans "Send" %}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</aside>
+{% endif %}

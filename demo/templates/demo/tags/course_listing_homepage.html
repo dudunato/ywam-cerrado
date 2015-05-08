@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% if courses %}
+  <div class="home-block col-sm-4">
+    <div class="home-block-header"><h3 class="home-block-title">{% trans "Courses" %}</h3></div>
+    <div class="list-group">
+      {% for course in courses %}
+        {% include "demo/includes/course_list_item.html" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
