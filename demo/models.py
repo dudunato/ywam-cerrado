@@ -274,6 +274,7 @@ class StandardIndexPage(Page, TranslatablePageMixin):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    single_form = models.BooleanField(default=False)
 
     search_fields = Page.search_fields + (
         index.SearchField('intro'),
@@ -284,6 +285,7 @@ StandardIndexPage.content_panels = [
     ImageChooserPanel('header_image'),
     FieldPanel('intro', classname="full"),
     FieldPanel('body', classname="full"),
+    FieldPanel('single_form'),
     InlinePanel(StandardIndexPage, 'related_links', label="Related links"),
 ]
 

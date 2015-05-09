@@ -17,3 +17,9 @@
 
     {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
 {% endblock %}
+
+{% block aside %}
+  {% if self.single_form %}
+    {% form_page calling_page=self  %}
+  {% endif %}
+{% endblock %}

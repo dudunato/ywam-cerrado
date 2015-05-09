@@ -84,7 +84,10 @@ def top_menu_children(context, parent):
 def standard_index_listing(context, calling_page):
     pages = StandardPage.objects.live().child_of(calling_page)
     pages_index = StandardIndexPage.objects.live().child_of(calling_page)
-    form_pages = FormPage.objects.live().child_of(calling_page)
+    if calling_page.single_form:
+        form_pages = None
+    else:
+        form_pages = FormPage.objects.live().child_of(calling_page)
 
     return {
         'pages': pages,
