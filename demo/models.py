@@ -259,6 +259,7 @@ class StandardIndexPageRelatedLink(Orderable, RelatedLink):
 
 class StandardIndexPage(Page, TranslatablePageMixin):
     intro = RichTextField(blank=True)
+    body = RichTextField(blank=True)
     header_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -282,6 +283,7 @@ StandardIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
     ImageChooserPanel('header_image'),
     FieldPanel('intro', classname="full"),
+    FieldPanel('body', classname="full"),
     InlinePanel(StandardIndexPage, 'related_links', label="Related links"),
 ]
 

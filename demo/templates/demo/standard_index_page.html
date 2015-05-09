@@ -10,6 +10,8 @@
       {% standard_index_listing calling_page=self %}
     </div>
 
+    {% include "demo/includes/body.html" with body=self.body only %}
+
     {% person_listing calling_page=self %}
 
     {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
