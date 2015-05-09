@@ -117,8 +117,9 @@ def person_listing(context, calling_page):
     'demo/tags/blog_listing_homepage.html',
     takes_context=True
 )
-def blog_listing_homepage(context, count=2):
-    blogs = BlogPage.objects.live().order_by('-date')
+def blog_listing_homepage(context, calling_page, count=9):
+    blogs = BlogPage.objects.live().descendant_of(calling_page).order_by('-date')
+
     return {
         'blogs': blogs[:count].select_related('feed_image'),
         # required by the pageurl tag that we want to use within this template
@@ -131,9 +132,10 @@ def blog_listing_homepage(context, count=2):
     'demo/tags/event_listing_homepage.html',
     takes_context=True
 )
-def event_listing_homepage(context, count=2):
-    events = EventPage.objects.live()
+def event_listing_homepage(context, calling_page, count=5):
+    events = EventPage.objects.live().descendant_of(calling_page)
     events = events.filter(date_from__gte=date.today()).order_by('date_from')
+
     return {
         'events': events[:count].select_related('feed_image'),
         # required by the pageurl tag that we want to use within this template
@@ -146,9 +148,10 @@ def event_listing_homepage(context, count=2):
     'demo/tags/course_listing_homepage.html',
     takes_context=True
 )
-def course_listing_homepage(context, count=2):
-    courses = CoursePage.objects.live()
+def course_listing_homepage(context, calling_page, count=5):
+    courses = CoursePage.objects.live().descendant_of(calling_page)
     courses = courses.filter(date_from__gte=date.today()).order_by('date_from')
+
     return {
         'courses': courses[:count].select_related('feed_image'),
         # required by the pageurl tag that we want to use within this template

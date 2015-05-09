@@ -17,7 +17,7 @@
     {# {% person_listing_homepage %} #}
     {#  #}
 
-    {% course_listing_homepage %}
+    {% course_listing_homepage calling_page=self %}
 
     <div class="welcome col-sm-4">
       {# <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Ebene_1" x="0px" y="0px" viewBox="5.0 -10.0 100.0 135.0" enable-background="new 0 0 100 100" xml:space="preserve"> #}
@@ -42,14 +42,14 @@
       </h2>
     </div>
 
-    {% event_listing_homepage %}
+    {% event_listing_homepage calling_page=self %}
 {% endblock %}
 
 {% block aside %}
 
   <aside class="home-magazine">
     <div class="container">
-     {% blog_listing_homepage %}
+     {% blog_listing_homepage calling_page=self %}
     </div>
   </aside>
 
