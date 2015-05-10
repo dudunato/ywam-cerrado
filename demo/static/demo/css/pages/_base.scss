@@ -452,6 +452,29 @@ footer {
     }
   }
 
+  .social-btns {
+    margin-top: 98px;
+
+    a {
+      color: white;
+      padding: 2px;
+      opacity: 0.4;
+      -webkit-transition: all 0.4s ease-out;
+      -moz-transition: all 0.4s ease-out;
+      -o-transition: all 0.4s ease-out;
+      transition: all 0.4s ease-out;
+
+      &:hover {
+        color: $main-color;
+        opacity: 1;
+        -webkit-transition: all 0.4s ease-out;
+        -moz-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
+      }
+    }
+  }
+
   .copyright {
     clear: both;
     margin-top: 170px;
