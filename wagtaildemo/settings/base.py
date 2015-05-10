@@ -169,7 +169,6 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
     'overextends',
-    'dashboard',
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
     'wagtail.wagtaildocs',
