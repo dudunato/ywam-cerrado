@@ -21,8 +21,6 @@ msgstr ""
 #: demo/templates/demo/base.html:11
 #: demo/templates/demo/tags/breadcrumbs.html:12
 #: demo/templates/demo/tags/top_menu.html:15
-#, fuzzy
-#| msgid "Cerrado"
 msgid "YWAM Cerrado"
 msgstr "JOCUM Cerrado"
 
