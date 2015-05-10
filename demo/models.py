@@ -118,6 +118,11 @@ class LinkFields(models.Model):
         else:
             return self.link_external
 
+    @property
+    def feed_image(self):
+        if self.link_page:
+            return self.link_page.specific.feed_image
+
     panels = [
         FieldPanel('link_external'),
         PageChooserPanel('link_page'),
@@ -377,7 +382,7 @@ class BlogIndexPage(Page, TranslatablePageMixin):
 
         return blogs
 
-    def get_context(self, request):
+    def get_context(self, request, *args, **kwargs):
         # Get blogs
         blogs = self.blogs
 
@@ -400,6 +405,7 @@ class BlogIndexPage(Page, TranslatablePageMixin):
         context = super(BlogIndexPage, self).get_context(request)
         context['blogs'] = blogs
         return context
+
 
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),

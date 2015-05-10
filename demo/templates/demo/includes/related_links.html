@@ -11,14 +11,12 @@
                     {% for related_link in related_links %}
                         <a class="list-group-item col-sm-2" href="{{ related_link.link }}">
                           <div class="media">
-                            {% if related_link.page.feed_image %}
                               <div class="media-top">
-                                {% image related_link.page.feed_image fill-150x150-c100 as img %}
+                                {% image related_link.feed_image fill-150x150-c100 as img %}
                                 <img class="media-object img-circle" src="{{ img.url }}" />
                               </div>
-                            {% endif %}
                             <div class="media-body">
-                              <h5 class="media-heading">{{ related_link.title }}</h5>
+                              <h5 class="media-heading">{{ related_link.title }} </h5>
                             </div>
                           </div>
                         </a>

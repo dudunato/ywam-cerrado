@@ -7,20 +7,20 @@
 
     {% include "demo/includes/contact.html" with contact=self only %}
 
-    {%  if self.post_code %}
-    	
-    	{% get_google_maps_key as google_maps_key %}
-
-    	<div class="page-header"><h3>Map</h3></div>
-
-		<img src="http://maps.googleapis.com/maps/api/staticmap?center={{ self.post_code }}&zoom=13&size=800x400&maptype=roadmap
-&sensor=false&markers=color:green|{{ self.post_code }}{% if google_maps_key %}&key={{ google_maps_key }}{% endif %}" />
-	{% endif %}
+    {# {%  if self.post_code %} #}
+    {# 	{% get_google_maps_key as google_maps_key %} #}
+    {# {% endif %} #}
 {% endblock %}
 
 {% block aside %}
 
    {% form_page calling_page=self  %}
+
+   <aside class="map">
+     <div class="google-maps">
+       <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15096.681534852005!2d-48.17349300000001!3d-18.923851000000006!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDU1JzI1LjkiUyA0OMKwMTAnMjQuNiJX!5e0!3m2!1spt-BR!2sbr!4v1431257126517" width="600" height="450" frameborder="0" style="border:0"></iframe>
+     </div>
+   </aside>
 
 {% endblock %}
 
