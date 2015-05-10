@@ -38,7 +38,7 @@
         <div class="tool-bar col-sm-7 pull-right">
               <form  action="/i18n/setlang/" method="post" class="lang pull-right">
                 {% csrf_token %}
-                <input name="next" type="hidden" value="{% next_pg_translated calling_page.url request.LANGUAGE_CODE %}" />
+                <input name="next" type="hidden" value="{% if request.LANGUAGE_CODE == 'en' %}/br{%else%}/en{%endif%}" />
                 <select name="language" class="col-sm-6 lang-field">
                   <option value="pt-br" {% if request.LANGUAGE_CODE == 'pt-br' %} selected {% endif %} >BR</option>
                     <option value="en" {% if request.LANGUAGE_CODE == 'en' %} selected {% endif %}>EN</option>
