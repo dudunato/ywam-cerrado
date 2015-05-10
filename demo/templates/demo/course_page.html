@@ -10,25 +10,37 @@
 
 
     <aside class="course-aside pull-right col-sm-4 text-center">
-      <div>
-        <i class="fa fa-calendar-o fa-2x"></i>
-        <h5>{% trans "Date" %}: <strong>{{self.date_from}}</strong></h5>
-      </div>
+      {% if self.date_from %}
+        <div>
+          <i class="fa fa-calendar-o fa-2x"></i>
+          <h5>{% trans "Date" %}: <strong>{{self.date_from}}</strong></h5>
+        </div>
+      {% endif %}
 
-      <div>
-        <i class="fa fa-language fa-2x"></i>
-        <h5>{% trans "Languages" %}: <strong>{{self.languages}}</strong></h5>
+      {% if self.languages %}
+        <div>
+          <i class="fa fa-language fa-2x"></i>
+          <h5>{% trans "Languages" %}: <strong>{{self.languages}}</strong></h5>
+        </div>
+      {% endif %}
 
-      </div>
+      {% if self.cost_lecture or self.cost_outreach %}
+        <div>
+          <i class="fa fa-credit-card fa-2x"></i>
 
-      <div>
-        <i class="fa fa-credit-card fa-2x"></i>
-        <h5>{% trans "Lecture fees" %}: <strong>{{self.cost_lecture}}</strong></h5>
-        <h5>{% trans "Outreach fees" %}: <strong>{{self.cost_outreach}}</strong></h5>
+          {% if self.cost_lecture %}
+            <h5>{% trans "Lecture fees" %}: <strong>{{self.cost_lecture}}</strong></h5>
+          {% endif %}
 
-      </div>
+          {% if self.cost_outreach %}
+            <h5>{% trans "Outreach fees" %}: <strong>{{self.cost_outreach}}</strong></h5>
+          {% endif %}
+        </div>
+      {% endif %}
 
-      <a class="btn btn-default btn-lg" href="">{% trans "Learn more about DTS" %}</a>
+      {% if self.is_dts %}
+        <a class="btn btn-default btn-lg" href="{% if request.LANGUAGE_CODE == 'en' %}/en/about-us/dts{% else %}/br/sobre-nos/eted{% endif %}">{% trans "Learn more about DTS" %}</a>
+      {% endif %}
 
     </aside>
 {% endblock %}

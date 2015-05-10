@@ -784,6 +784,7 @@ class CoursePage(Page, TranslatablePageMixin):
         on_delete=models.SET_NULL,
         related_name='+'
     )
+    is_dts = models.BooleanField(default=False)
 
     search_fields = Page.search_fields + (
         index.SearchField('body'),
@@ -801,6 +802,7 @@ CoursePage.content_panels = [
     FieldPanel('languages'),
     FieldPanel('cost_lecture'),
     FieldPanel('cost_outreach'),
+    FieldPanel('is_dts'),
     FieldPanel('signup_link'),
     FieldPanel('body', classname="full"),
     InlinePanel(CoursePage, 'related_links', label="Related links"),
