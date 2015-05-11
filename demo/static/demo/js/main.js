@@ -31,5 +31,7 @@ $(document).ready(function(){
       });
     });
 
+    $(".cover-video")[0].play();
+
 });
 

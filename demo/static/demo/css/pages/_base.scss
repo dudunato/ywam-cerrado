@@ -219,6 +219,10 @@ header {
 .en {
   background: url('../../demo/images/logo-en.svg');
   background-size: 300px 178px;
+
+  @media (max-width: 375px) {
+    background-size: 195px 83px;
+  }
 }
 
 .div-slogan{
