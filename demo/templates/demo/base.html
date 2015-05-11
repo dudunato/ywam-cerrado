@@ -60,9 +60,14 @@
           {% endblock %}
 
           {% if self.get_verbose_name == 'Homepage' %}
-            <video id="vid" class="cover-video" style="display: block;" class="" autoplay loop muted preload="undefined" width="100%" height="100%">
+            <video class="cover-video" loop muted autoplay preload="undefined" width="100%" height="100%" poster="{% static "demo/images/default-cover.JPG" %}">
               <source src="{% static "demo/images/cover-video.mp4" %}" type="video/mp4">
             </video>
+
+            <picture class="cover-mobile">
+              <source srcset="{% static "demo/images/default-cover.JPG" %}">
+              <img id="img-cover" src="{% static "demo/images/default-cover.JPG" %}" alt="#">
+            </picture>
 
             <div class="btn-header">
               <a href="{% if LANGUAGE_CODE == 'en' %}/en/training{% else %}/br/treinamento{% endif %}" class="btn btn-lg btn-primary">{% trans "Apply" %}</a>

@@ -295,6 +295,21 @@ header {
 
 }
 
+.cover-video {
+  display: block;
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.cover-mobile {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+}
+
 /* Style pager */
 .col-sm-4.pages {
     text-align: center;
