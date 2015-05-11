@@ -31,7 +31,10 @@ $(document).ready(function(){
       });
     });
 
-    $(".cover-video")[0].play();
+    var $video = $('#vid');
+    $video.on('canplaythrough', function() {
+       this.play();
+    });
 
 });
 
