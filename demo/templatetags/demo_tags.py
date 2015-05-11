@@ -185,7 +185,7 @@ def breadcrumbs(context):
 
 @register.inclusion_tag('demo/tags/form.html', takes_context=True)
 def form_page(context, calling_page):
-    formpage = FormPage.objects.live().descendant_of(calling_page)
+    formpage = FormPage.objects.live().child_of(calling_page)
 
     if formpage:
         formpage = formpage[0]
