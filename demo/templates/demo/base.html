@@ -60,7 +60,7 @@
           {% endblock %}
 
           {% if self.get_verbose_name == 'Homepage' %}
-            <video class="cover-video" style="display: block;" class="" autoplay loop muted preload="undefined" width="100%" height="100%" poster="{% static "demo/images/default-cover.jpg" %}">
+            <video class="cover-video" style="display: block;" class="" autoplay loop muted preload="undefined" width="100%" height="100%" poster="{% static "demo/images/default-cover.JPG" %}">
               <source src="{% static "demo/images/cover-video.mp4" %}" type="video/mp4">
             </video>
 
@@ -78,8 +78,8 @@
             {% else %}
               {% if self.get_verbose_name != 'Blog Index Page' %}
                 <picture>
-                  <source srcset="{% static "demo/images/default-cover.jpg" %}">
-                  <img id="img-cover" src="{% static "demo/images/default-cover.jpg" %}" alt="#">
+                  <source srcset="{% static "demo/images/default-cover.JPG" %}">
+                  <img id="img-cover" src="{% static "demo/images/default-cover.JPG" %}" alt="#">
                 </picture>
               {% endif %}
             {% endif %}
