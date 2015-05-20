@@ -10,12 +10,18 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Admin', 'contato@ywamcerrado.org'),
 )
 
 # Default to dummy email backend. Configure dev/production/local backend
 # as per https://docs.djangoproject.com/en/dev/topics/email/#email-backends
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'contato@ywamcerrado.org'
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER = 'contato@ywamcerrado.org'
+EMAIL_HOST_PASSWORD = 'YwamCerradoMail'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
 
 DATABASES = {
     'default': {
