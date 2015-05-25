@@ -21,20 +21,15 @@ $(document).ready(function(){
       out: { effect: 'flash', reverse: true }
     });
 
-    $('#img-cover').height(function(){
-       return $(window).height() * 0.8;
-    });
+    // $('#img-cover').height(function(){
+    //    return $(window).height() * 0.8;
+    // });
 
-    $(window).resize(function() {
-      $('#img-cover').height(function(){
-         return $(window).height() * 0.8;
-      });
-    });
-
-    var $video = $('#vid');
-    $video.on('canplaythrough', function() {
-       this.play();
-    });
+    // $(window).resize(function() {
+    //   $('#img-cover').height(function(){
+    //      return $(window).height() * 0.8;
+    //   });
+    // });
 
 });
 

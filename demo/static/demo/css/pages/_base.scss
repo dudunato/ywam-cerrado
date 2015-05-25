@@ -271,6 +271,10 @@ header {
   color: #FFF;
   text-align: center;
   opacity: 0.8;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
 
 .btn-header {
@@ -532,6 +536,14 @@ footer {
 
     @media (max-width: 375px) {
       font-size: 47px;
+    }
+  }
+
+  h2 {
+    @media (max-width: 375px) {
+      small {
+        display: block;
+      }
     }
   }
 }

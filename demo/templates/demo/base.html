@@ -84,14 +84,22 @@
 
             {% if self.header_image %}
               {% image self.header_image original as himgo %}
+              {% image self.header_image width-1280 as himg_large %}
+              {% image self.header_image width-992 as himg_desktops %}
+              {% image self.header_image width-768 as himg_tablets %}
+              {% image self.header_image width-480 as himg_phones %}
               <picture>
                 <source srcset="{{ himgo.url }}">
+                <source srcset="{{ himg_large.url }}" media="(max-width: 1280px)">
+                <source srcset="{{ himg_desktops.url }}" media="(max-width: 992px)">
+                <source srcset="{{ himg_tablets.url }}" media="(max-width: 768px)">
+                <source srcset="{{ himg_phones.url }}" media="(max-width: 480px)">
                 <img id="img-cover" src="{{ himgo.url }}" alt="#">
               </picture>
             {% else %}
               {% if self.get_verbose_name != 'Blog Index Page' %}
                 <picture>
-                  <source srcset="{% static "demo/images/default-cover.JPG" %}">
+                <source srcset="{% image demo/images/default-cover.JPG width-1280 %}" media="(max-width: 1280px)">
                   <img id="img-cover" src="{% static "demo/images/default-cover.JPG" %}" alt="#">
                 </picture>
               {% endif %}
