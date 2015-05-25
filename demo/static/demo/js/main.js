@@ -1,7 +1,3 @@
-$(window).on('beforeunload',function(){
-});
-
-
 $(document).ready(function(){
     $('select').select2({minimumResultsForSearch: Infinity});
     // Initializes tooltips
